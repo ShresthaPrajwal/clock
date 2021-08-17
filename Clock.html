@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Clock</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Catamaran">
+    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0px;
+            background-color: black;
+        }
+        
+        body {
+            position: ralative;
+        }
+        
+        #clist {
+            display: flex;
+            width: 100%;
+            padding: 2vh;
+            justify-content: space-around;
+        }
+        
+        button {
+            outline: none;
+            color: #00ff9f;
+            background-color: black;
+            border: 5px;
+            border-radius: 4px;
+            font-size: 50px;
+            transition: all 0.7s;
+            padding: 10px 40px;
+            font-family: Catamaran;
+        }
+        
+        button:hover {
+            text-shadow: 0 0 10px rgb(99, 202, 30);
+        }
+        
+        .lists {
+            text-align: center;
+            justify-content: center;
+            width: auto;
+        }
+        
+        #clock {
+            width: 400px;
+            height: auto;
+            position: absolute;
+            color: rgba(255, 255, 0, 0.685);
+            text-shadow: 0px 0px 10px rgba(255, 255, 0, 0.815);
+            top: 50%;
+            left: 50%;
+            margin-left: -200px;
+            font-family: 'Orbitron';
+            text-align: center;
+            font-size: 70px;
+            cursor: pointer;
+        }
+        
+        @media only screen and (max-width:450px) {
+            #clist {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="clist">
+        <div id="Nepal" class="lists"><button onclick="show(5.75)">Nepal</button></div>
+        <div id="Usa" class="lists" onclick="show(-5.0)"><button>USA</button></div>
+        <div id="India" class="lists" onclick="show(5.5)"><button>India</button></div>
+    </div>
+
+
+    <div id="clock">
+
+
+    </div>
+    <script>
+        var ampm;
+
+        function show(utccode) {
+            //Create Date obj for current location
+            var now = new Date();
+            var data = document.getElementById("clock");
+            //getUTC in millisecond and add local time zone offset
+            console.log(now.getTime());
+            console.log((now.getTimezoneOffset() * 60000));
+
+            var utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+            console.log(utc);
+            //create new Date obj for diff cities
+            var newdate = new Date(utc + (3600000 * utccode));
+            console.log(newdate);
+
+
+            var hours = newdate.getHours();
+            var Minutes = newdate.getMinutes();
+            if (hours > 12) {
+                hours -= 12;
+                ampm = "PM";
+            } else {
+                ampm = "AM";
+            }
+            data.innerHTML = hours + ":" + Minutes + " " + ampm;
+            console.log(now.getUTCHours());
+        }
+    </script>
+</body>
+
+</html>
